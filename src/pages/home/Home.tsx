@@ -1,3 +1,6 @@
+import ListaProdutos from "../../components/produtos/listaprodutos/ListaProdutos"
+import ModalProduto from "../../components/produtos/ModalProduto/ModalProduto"
+
 function Home() {
     return (
         <>
@@ -12,10 +15,8 @@ function Home() {
                         </p>
 
                         <div className="flex justify-around gap-4">
-                            <div className='rounded text-cyan-950
-                                            border-text-cyan-950 border-solid border-2 py-2 px-4'
-                                >
-                                Cadastrar Produto
+                            <div className='flex justify-around gap-4'>
+                                <ModalProduto />
                             </div>
                         </div>
                     </div>
@@ -29,6 +30,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <ListaProdutos />
         </>
     )
 }
