@@ -1,0 +1,16 @@
+.fundo-cadastro-overlay {
+  /* Estas propriedades definem a imagem de fundo e sua cobertura */
+  background-image: url("https://ik.imagekit.io/mix7flwol/Gemini_Generated_Image_glhcipglhcipglhc.png?updatedAt=1751481455842");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  /* Aplica a opacidade SOMENTE a esta camada */
+  opacity: 0.5; 
+  /* Estas propriedades são para posicionar e esticar esta div de fundo */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Garante que fique atrás de todo o conteúdo */
+}

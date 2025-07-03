@@ -1,63 +1,86 @@
 import { MagnifyingGlass, User, ShoppingCart } from "@phosphor-icons/react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext, type ReactNode } from "react";
+import { ToastAlerta } from "../../utils/ToastAlerta";
 
 function Navbar() {
-  return (
-    // Contêiner principal da Navbar
-    <nav className="bg-[#3B3B7C] p-4 shadow-lg flex items-center justify-between font-sans">
-      {/* Seção da Logo e Nome da Farmácia */}
+
+  const navigate = useNavigate();
+
+  const {usuario, handleLogout } = useContext(AuthContext)
+
+  function logout() {
+
+        handleLogout()
+        ToastAlerta("O Usuário foi desconectado com sucesso!", "info")
+        navigate('/')
+  }
+  let component: ReactNode
+
+  if (usuario.token !== ""){
+    component = (
+      <nav className="bg-[#3B3B7C] p-4 shadow-lg flex items-center justify-between font-sans">
+      
       <div className="flex items-center space-x-4">
-        {/* Contêiner do logo com borda amarela */}
-        <span className="text-white text-3xl font-extrabold tracking-wide ml-2">
-          FARMÁCIA
-        </span>
+          <Link to='/home' className="text-white text-4xl font-bold tracking-wider ml-6">Farmácia</Link>
       </div>
 
-      {/* Input de Busca com Botão (centralizado e ocupando espaço) */}
+      
       <div className="flex-grow flex justify-center mx-4">
-        <div className="flex w-full max-w-xl">
-          {" "}
-          {/* max-w-xl controla a largura máxima do campo de busca */}
+        <div className="flex w-80 max-w-2xs">
+          
           <input
             type="text"
             placeholder="Procurar"
-            className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
+            className="w-80 h-10 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
           />
           {/* Botão de Busca */}
-          <button className="bg-cyan-100 p-3 rounded-r-lg flex items-center justify-center hover:bg-cyan-500 transition-colors duration-200">
+          <button className="bg-cyan-100 p-3 h-10 rounded-r-lg flex items-center justify-center hover:bg-cyan-500 transition-colors duration-200">
             <MagnifyingGlass size={24} className="text-blue-900" />{" "}
-            {/* Ícone da Lupa do Phosphor */}
+            
           </button>
         </div>
       </div>
 
-      {/* Navegação da Direita e Ícones de Ação */}
       <div className="flex items-center space-x-6">
         <a
           href="#"
           className="text-white hover:text-gray-300 text-lg font-medium"
         >
-          Categorias
+          <Link to='/categorias' className='hover:underline'>Categorias</Link>
         </a>
         <a
           href="#"
           className="text-white hover:text-gray-300 text-lg font-medium"
         >
-          Cadastrar Categoria
+          <Link to='/cadastrarcategoria' className='hover:underline'>Cadastrar Categoria</Link>
+        </a>
+        <a
+          href="#"
+          className="text-white hover:text-gray-300 text-lg font-medium"
+        >
+          <Link to='/produtos' className='hover:underline'>Produtos</Link>
         </a>
 
-        {/* Ícone de três pontos para "mais" opções */}
-
-        {/* Ícone de Usuário/Conta */}
         <button className="text-white hover:text-gray-300">
-          <User size={28} /> {/* Ajustei o size */}
+          <Link to='/perfil' className='hover:underline'><User size={28} /></Link>
         </button>
 
-        {/* Ícone de Carrinho de Compras */}
         <button className="text-white hover:text-gray-300">
           <ShoppingCart size={28} /> {/* Ajustei o size */}
         </button>
+        <Link to='' onClick={logout} className='text-white font-bold hover:underline'>Sair</Link>
       </div>
     </nav>
+    )
+  }
+    
+  return (
+    <>
+       {component}
+    </>
+    
   );
 }
 
